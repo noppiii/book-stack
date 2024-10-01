@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
@@ -94,6 +95,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if ($roleId && $this->roles()->where('id', '=', $roleId)->count() === 0) {
             $this->roles()->attach($roleId);
         }
+    }
+
+    /**
+     * Get the MFA values belonging to this use.
+     */
+    public function mfaValues(): HasMany
+    {
+        return $this->hasMany(MfaValue::class);
     }
 
     public function getAuthIdentifierName()
