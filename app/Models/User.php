@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Core\Sluggable;
 use App\Models\Activity\Loggable;
+use App\Translations\LocaleDefinition;
+use App\Translations\LocaleManager;
 use Couchbase\Role;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -95,6 +97,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if ($roleId && $this->roles()->where('id', '=', $roleId)->count() === 0) {
             $this->roles()->attach($roleId);
         }
+    }
+
+    /**
+     * Get the locale for this user.
+     */
+    public function getLocale(): LocaleDefinition
+    {
+        return app()->make(LocaleManager::class)->getForUser($this);
     }
 
     /**
