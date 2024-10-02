@@ -5,9 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Core\Sluggable;
 use App\Models\Activity\Loggable;
+use App\Models\User\Role;
 use App\Translations\LocaleDefinition;
 use App\Translations\LocaleManager;
-use Couchbase\Role;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -114,6 +114,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany(MfaValue::class);
     }
+
 
     public function getAuthIdentifierName()
     {

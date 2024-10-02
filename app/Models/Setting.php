@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Core\OwnModel;
 
-class Setting extends Model
+class Setting extends OwnModel
 {
-    use HasFactory;
+    protected $fillable = ['setting_key', 'value'];
+
+    protected $primaryKey = 'setting_key';
 }
